@@ -11,4 +11,11 @@ router.get('/about', (req, res)=> {
     res.sendFile(path.join(__dirname, '../index.html'));
 });
 
+
+
+//여담
+router.post()
+router.delete()
+
+
 module.exports = router;

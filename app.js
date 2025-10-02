@@ -3,6 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user.js');
 
 
 dotenv.config();                    //process.env에 저장됨
@@ -18,7 +19,7 @@ app.use((req, res, next)=>{         //next는 매개변수로 활동
 app.use(morgan('dev'));
 
 app.use('/', indexRouter);
-
+app.use('/user', userRouter);
 /*
 app.get('/about', (req, res)=> {
     //res.send('Hello, World');
@@ -27,10 +28,16 @@ app.get('/about', (req, res)=> {
 });
 */
 
+app.use((req, res, next) => {
+    res.status(404).send('Not Found');
+})
+
 app.use((err,req,res,next)=> {
     console.error(err);
     res.status(500).send(err.message);
 })
+
+
 
 app.listen(app.get('port'), ()=> {
     console.log(app.get('port'), '번 포트에서 대기  중');
